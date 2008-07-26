@@ -19,3 +19,9 @@ User.class_eval
 end
 
 User.new(:name => "Dave").valid?  # true, only cares about name
+
+
+CREDITS
+
+Brought to you by Dave Hoover, inspired by Nate Jackson, who will probably take this and make it better.
+We work at Obtiva's Software Studio.
