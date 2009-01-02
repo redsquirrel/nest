@@ -4,7 +4,7 @@ require 'brain_cell'
 require 'core_ext'
 require 'grids'
 require 'ostruct'
-require 'solver'
+require 'solvers'
 
 def solve(start)
   board = Board.new(start)

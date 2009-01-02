@@ -1,4 +1,4 @@
-require 'main'
+require 'solver'
 
 # http://en.wikipedia.org/wiki/Sudoku
 wiki = [
