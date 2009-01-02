@@ -22,7 +22,6 @@ class Brain < Array
   end
   
   def guess(board, blanks, state)
-    threads = []
     brain_cells = sorted_cells_with_coords_from(blanks)
     brain_cells.each do |brain_cell, coords|
       brain_cell.size.times do |i|
@@ -30,7 +29,7 @@ class Brain < Array
         if state.finished
           return
         else
-          threads << Thread.new do
+          Thread.new do
             think(board, self, state)
           end
         end
