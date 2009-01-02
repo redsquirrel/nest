@@ -19,7 +19,7 @@ class Board < Array
     self[y][x] = value
   end
   
-  def report
-    map { |row| row.map { |c| c.zero? ? " " : c }.join("") }.join("\n")
+  def to_s
+    map { |row| row.map { |c| c.zero? ? " " : c }.join }.join("\n")
   end
 end

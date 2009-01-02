@@ -1,31 +1,55 @@
-class Solvers < Array
-  class ConflictException < Exception; end    
+require 'board'
+require 'brain'
+require 'brain_cell'
+require 'core_ext'
+require 'grids'
+require 'ostruct'
+require 'solver'
+
+def solve(start)
+  board = Board.new(start)
+  fail("Bad board") unless board.size == 9 && board[4].size == 9
+
+  brain = Brain.new
+  fail("Bad brain: rows=#{brain.size}, cols=#{brain[7].size}") unless brain.size == 9 && brain[7].size == 9 && brain[3][1].size == 9
+
+  state = OpenStruct.new
+  think(board, brain, state)
+
+  return state.finished.to_s
+end
+
+def think(board, brain, state)
+  board = board.deep_copy
+  brain = brain.deep_copy
+  grids = Grids.new(board)
+
+  blanks = board.blanks
+  if blanks.empty?
+    state.finished = board
+  end
   
-  def check_for_conflicts(grids)
-    each do |s1|
-      grid1 = grids.get(s1.x, s1.y)
+  return if state.finished
 
-      each do |s2|
-        next if s1.x == s2.x && s1.y == s2.y
+  begin
+    brain.narrow(blanks, board, grids)
+  rescue BrainCell::EmptyException
+    return
+  end
 
-        if s1.x == s2.x && s1.value == s2.value
-          raise ConflictException
-        end
-        if s1.y == s2.y && s1.value == s2.value
-          raise ConflictException
-        end
+  solvers = brain.solvers(blanks)
+  
+  if solvers.empty?    
+    brain.guess(board, blanks, state)
 
-        grid2 = grids.get(s2.x, s2.y)
-        if grid1 == grid2 && s1.value == s2.value
-          raise ConflictException
-        end
-      end
+  else
+    begin
+      solvers.check_for_conflicts(grids)
+      solvers.solve(board)
+    rescue Solver::ConflictException
+      return
     end
   end
   
-  def solve(board)
-    each do |s|
-      board.set(s.x, s.y, s.value)
-    end    
-  end
+  think(board, brain, state)
 end
