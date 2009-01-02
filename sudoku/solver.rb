@@ -10,18 +10,20 @@ def solve(start)
   board = Board.new(start)
   fail("Bad board") unless board.size == 9 && board[4].size == 9
 
-  brain = Brain.new
+  brain = Brain.new(board)
   fail("Bad brain: rows=#{brain.size}, cols=#{brain[7].size}") unless brain.size == 9 && brain[7].size == 9 && brain[3][1].size == 9
 
   state = OpenStruct.new
   think(board, brain, state)
-
   return state.finished.to_s
 end
 
 def think(board, brain, state)
+  # I make copies of the board and brain because I need to make guesses
+  # that I don't want to have to clean up
   board = board.deep_copy
   brain = brain.deep_copy
+
   grids = Grids.new(board)
 
   blanks = board.blanks
@@ -46,7 +48,7 @@ def think(board, brain, state)
     begin
       solvers.check_for_conflicts(grids)
       solvers.solve(board)
-    rescue Solver::ConflictException
+    rescue Solvers::ConflictException
       return
     end
   end
