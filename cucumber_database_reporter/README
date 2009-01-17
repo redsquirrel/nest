@@ -1,1 +1,5 @@
 This was developed against Cucumber 0.1.15, so if the Custom Formatter interface changes, this code will not work.
+
+I ran this from the command line:
+
+cucumber -r features/step_definitions/ -r custom_formatters/database_report.rb -f DatabaseReport features
