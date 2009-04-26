@@ -3,15 +3,15 @@ require 'grid'
 
 class GameTest < Test::Unit::TestCase
   
+  EMPTY = 
+    [[0, 0, 0],
+     [0, 0, 0],
+     [0, 0, 0]]  
+  
   def test_empty_grid
-    initial = Grid.new(
-      [[0, 0, 0],
-       [0, 0, 0],
-       [0, 0, 0]]
-    )
-    gen1 = initial.next
-    
-    assert gen1.empty?
+    initial = Grid.new(EMPTY)
+    gen1 = initial.next    
+    assert_equal(EMPTY, gen1.data)
   end
 
   def test_grid_with_one_cell
@@ -21,8 +21,7 @@ class GameTest < Test::Unit::TestCase
        [0, 0, 0]]
     )
     gen1 = initial.next
-    
-    assert gen1.empty?
+    assert_equal(EMPTY, gen1.data)
   end
 
   def test_live_neighbor_count_for_center

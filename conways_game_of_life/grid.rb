@@ -63,10 +63,6 @@ class Grid
     live_neighbor_count
   end
   
-  def empty?
-    true
-  end
-  
   def to_s
     @grid.map { |row| row.map {|cell| cell == 0 ? " " : cell }.join }.join("\n")
   end
