@@ -56,10 +56,8 @@ class GameTest < Test::Unit::TestCase
       [[0, 1, 0],
        [0, 1, 0],
        [0, 1, 0]]
-    )
-    
-    gen1 = initial.next
-    
+    )    
+    gen1 = initial.next    
     assert_equal(
      [[0, 0, 0],
       [1, 1, 1],
@@ -71,10 +69,8 @@ class GameTest < Test::Unit::TestCase
       [[0, 1, 0],
        [1, 1, 1],
        [0, 1, 0]]
-    )
-    
-    gen1 = initial.next
-    
+    )    
+    gen1 = initial.next    
     assert_equal(
      [[1, 1, 1],
       [1, 0, 1],
@@ -86,10 +82,8 @@ class GameTest < Test::Unit::TestCase
       [[0, 1, 0],
        [1, 1, 0],
        [0, 0, 0]]
-    )
-    
-    gen1 = initial.next
-    
+    )    
+    gen1 = initial.next    
     assert_equal(
      [[1, 1, 0],
       [1, 1, 0],
